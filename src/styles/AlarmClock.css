@@ -1,59 +1,281 @@
-.alarm-clock-container {
+/* Import font */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.alarm-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #121212;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #ffffff;
+  font-family: 'Orbitron', sans-serif;
 }
 
-.alarm-clock {
-  width: 400px;
-  height: 200px;
-  background-color: #1a1a1a;
-  border-radius: 15px;
-  border: 4px solid #333;
-  box-shadow: 
-    0 0 10px rgba(0, 0, 0, 0.5),
-    inset 0 0 20px rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.clock-container {
   position: relative;
-  padding: 20px;
-}
-
-.clock-display {
-  width: 90%;
-  height: 80%;
-  background-color: #000;
-  border-radius: 8px;
+  width: 700px;
+  height: 700px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.1);
+  margin-bottom: 50px;
 }
 
-.time {
-  font-family: 'Digital-7', 'Courier New', monospace;
-  font-size: 4rem;
-  color: #00ff00; /* Verde clássico de relógios digitais antigos */
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+.clock-face {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 15px rgba(0, 195, 255, 0.5));
+}
+
+.clock-circle {
+  fill: rgba(25, 33, 52, 0.8);
+  stroke: #00c3ff;
+  stroke-width: 1;
+}
+.clock-decoration {
+  fill: none;
+  stroke: #0af;
+  stroke-width: 0.5;
+  stroke-dasharray: 2;
+  transform-origin: center;
+  animation: pulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 0.5; stroke-width: 0.3; }
+  to { opacity: 1; stroke-width: 0.7; }
+}
+.hour-marker {
+  stroke: #4cc9f0;
+  stroke-width: 1;
+}
+
+.hour-text {
+  font-size: 4px;
+  fill: #fff;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 500;
+}
+
+.hour-hand, .minute-hand, .second-hand {
+  stroke-linecap: round;
+  transform-origin: 50px 50px;
+  transition: transform 0.05s cubic-bezier(0.9, 0.1, 0.1, 0.9);
+}
+
+.hour-hand {
+  stroke: #f72585;
+  stroke-width: 3.5;
+}
+
+.minute-hand {
+  stroke: #7209b7;
+  stroke-width: 2.5;
+}
+
+.second-hand {
+  stroke: #4cc9f0;
+  stroke-width: 1.5;
+  transition: transform 0s;
+}
+
+.mid-circle {
+  fill: #4cc9f0;
+  stroke: #fff;
+  stroke-width: 0.5;
+  r: 4;
+}
+
+.digital-display {
+  margin-top: 30px;
+  font-size: 3rem;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  padding: 10px 20px;
+  color: #4cc9f0;
+  text-shadow: 0 0 10px rgba(76, 201, 240, 0.7);
   letter-spacing: 2px;
+  border: 1px solid rgba(76, 201, 240, 0.3);
+  box-shadow: 0 0 20px rgba(76, 201, 240, 0.2);
 }
 
-.separator {
-  animation: blink 1s infinite;
+.digital-display span {
+  display: inline-block;
+  width: 70px;
+  text-align: center;
 }
 
-@keyframes blink {
-  0%, 100% {
-    opacity: 1;
+.alarm-controls {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.alarm-inputs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Style the arrows of number inputs instead of removing them */
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+  height: 20px;
+  opacity: 1;
+  margin-right: 3px;
+  cursor: pointer;
+}
+
+/* Adjust input size to accomodate the arrows */
+.time-input {
+  width: 70px; /* A bit wider to accomodate the arrows */
+  height: 40px;
+  background: rgba(25, 33, 52, 0.8);
+  border: 1px solid #4cc9f0;
+  border-radius: 8px;
+  color: #4cc9f0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  text-align: center;
+  outline: none;
+  transition: all 0.3s;
+  padding-right: 5px; /* Space for arrows */
+}
+
+.hour-hand {
+  stroke: #f72585;
+  stroke-width: 2.5;
+}
+
+.minute-hand {
+  stroke: #7209b7;
+  stroke-width: 1.8;
+}
+
+.second-hand {
+  stroke: #4cc9f0;
+  stroke-width: 1;
+  transition: transform 0s;
+}
+.time-input:focus {
+  box-shadow: 0 0 10px rgba(76, 201, 240, 0.7);
+  border-color: #7209b7;
+}
+
+.colon {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4cc9f0;
+}
+
+.alarm-button {
+  width: 70%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(45deg, #f72585, #7209b7);
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 5px 15px rgba(247, 37, 133, 0.3);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.alarm-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(247, 37, 133, 0.4);
+}
+
+.alarm-button:active {
+  transform: translateY(1px);
+}
+
+.alarm-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.alarm-button:hover::before {
+  left: 100%;
+}
+
+.alarm-button.active {
+  background: linear-gradient(45deg, #480ca8, #4cc9f0);
+}
+
+/* Remover setas dos inputs numéricos */
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.stop-alarm-button {
+  margin: 15px 0;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(45deg, #ff0844, #f72585);
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 0 20px rgba(255, 8, 68, 0.5);
+  animation: pulse-alert 1.5s infinite;
+}
+
+.stop-alarm-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 8, 68, 0.7);
+}
+
+.stop-alarm-button:active {
+  transform: scale(0.98);
+}
+
+@keyframes pulse-alert {
+  0% {
+    box-shadow: 0 0 20px rgba(255, 8, 68, 0.5);
   }
   50% {
-    opacity: 0.2;
+    box-shadow: 0 0 30px rgba(255, 8, 68, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(255, 8, 68, 0.5);
   }
 }
 
-@import url('https://fonts.cdnfonts.com/css/digital-7-mono');
 
-
+.period {
+    margin-left: 20px; /* Adjust this value as needed */
+  }
+  
